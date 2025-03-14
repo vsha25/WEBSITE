@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Service Directory - Reviews & Ratings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            padding: 20px;
+        }
+        .service-listing {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .service-item {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+            width: 250px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: center;
+        }
+        .service-item h3 {
+            font-size: 18px;
+            color: #333;
+        }
+        .service-item p {
+            color: #666;
+            font-size: 14px;
+        }
+        .review-form {
+            margin-top: 20px;
+        }
+        .rating {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+        .star {
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .review-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .review-btn:hover {
+            background-color: #45a049;
+        }
+        .reviews-section {
+            margin-top: 30px;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+        }
+        .review-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .review-item p {
+            color: #555;
+        }
+        .review-item .rating {
+            color: #FFD700;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Local Service Directory</h1>
+    <p>Find local services, read reviews, and leave your own ratings and feedback.</p>
+</header>
+
+<div class="container">
+    <div class="service-listing">
+        <div class="service-item">
+            <h3>John's Plumbing</h3>
+            <p>Pipe repairs, installations, and leak detection.</p>
+
+            <!-- Rating System for John’s Plumbing -->
+            <div class="reviews-section" id="john-reviews">
+                <h4>Customer Reviews</h4>
+                <div class="review-form">
+                    <label for="john-rating">Rate this service:</label>
+                    <div class="rating" id="john-rating">
+                        <span class="star" onclick="rateService('john', 1)">&#9733;</span>
+                        <span class="star" onclick="rateService('john', 2)">&#9733;</span>
+                        <span class="star" onclick="rateService('john', 3)">&#9733;</span>
+                        <span class="star" onclick="rateService('john', 4)">&#9733;</span>
+                        <span class="star" onclick="rateService('john', 5)">&#9733;</span>
+                    </div>
+                    <textarea id="john-review-text" placeholder="Write a review..." rows="4" style="width: 100%; margin-top: 10px;"></textarea>
+                    <button class="review-btn" onclick="submitReview('john')">Submit Review</button>
+                </div>
+
+                <div class="review-list" id="john-reviews-list">
+                    <!-- Reviews for John's Plumbing will appear here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="service-item">
+            <h3>Mike's Plumbing</h3>
+            <p>Affordable plumbing, drainage solutions, and more.</p>
+
+            <!-- Rating System for Mike’s Plumbing -->
+            <div class="reviews-section" id="mike-reviews">
+                <h4>Customer Reviews</h4>
+                <div class="review-form">
+                    <label for="mike-rating">Rate this service:</label>
+                    <div class="rating" id="mike-rating">
+                        <span class="star" onclick="rateService('mike', 1)">&#9733;</span>
+                        <span class="star" onclick="rateService('mike', 2)">&#9733;</span>
+                        <span class="star" onclick="rateService('mike', 3)">&#9733;</span>
+                        <span class="star" onclick="rateService('mike', 4)">&#9733;</span>
+                        <span class="star" onclick="rateService('mike', 5)">&#9733;</span>
+                    </div>
+                    <textarea id="mike-review-text" placeholder="Write a review..." rows="4" style="width: 100%; margin-top: 10px;"></textarea>
+                    <button class="review-btn" onclick="submitReview('mike')">Submit Review</button>
+                </div>
+
+                <div class="review-list" id="mike-reviews-list">
+                    <!-- Reviews for Mike's Plumbing will appear here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to handle the rating click
+    function rateService(service, rating) {
+        const stars = document.querySelectorAll(`#${service}-rating .star`);
+        stars.forEach((star, index) => {
+            if (index < rating) {
+                star.style.color = 'gold';
+            } else {
+                star.style.color = '#ddd';
+            }
+        });
+
+        document.getElementById(`${service}-rating-value`).value = rating; // Store the rating value
+    }
+
+    // Function to submit a review
+    function submitReview(service) {
+        const reviewText = document.getElementById(`${service}-review-text`).value;
+        const rating = document.getElementById(`${service}-rating-value`) ? document.getElementById(`${service}-rating-value`).value : 0;
+
+        if (reviewText.trim() === "") {
+            alert("Please write a review before submitting.");
+            return;
+        }
+
+        if (rating == 0) {
+            alert("Please select a rating.");
+            return;
+        }
+
+        // Display the review below
+        const reviewList = document.getElementById(`${service}-reviews-list`);
+        const newReview = document.createElement('div');
+        newReview.classList.add('review-item');
+        newReview.innerHTML = `
+            <div class="rating">${'★'.repeat(rating)}</div>
+            <p>${reviewText}</p>
+        `;
+        reviewList.appendChild(newReview);
+
+        // Clear form fields after submission
+        document.getElementById(`${service}-review-text`).value = "";
+        document.getElementById(`${service}-rating-value`).value = 0;
+        document.querySelectorAll(`#${service}-rating .star`).forEach(star => star.style.color = '#ddd');
+    }
+</script>
+
+</body>
+</html>

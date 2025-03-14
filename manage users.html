@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Service Directory - Admin Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: darkred;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .user-form {
+            background: #f5f6fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .users-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .users-table th,
+        .users-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .users-table th {
+            background: #34495e;
+            color: white;
+        }
+
+        .users-table tr:hover {
+            background: #f5f6fa;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Local Service Directory - Admin Dashboard</h1>
+    </div>
+
+    <div class="container">
+        <form id="userForm" class="user-form">
+            <h2>Add/Edit User</h2>
+            <input type="hidden" id="userId">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <input type="text" id="role" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Save User</button>
+        </form>
+
+        <table class="users-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="usersList">
+                <!-- User data will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Sample initial users data
+        let users = [
+            { id: 1, username: 'john_doe', email: 'john@example.com', role: 'Admin' },
+            { id: 2, username: 'jane_smith', email: 'jane@example.com', role: 'Editor' }
+        ];
+
+        // DOM Elements
+        const userForm = document.getElementById('userForm');
+        const usersList = document.getElementById('usersList');
+        const userIdInput = document.getElementById('userId');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const roleInput = document.getElementById('role');
+
+        // Display users
+        function displayUsers() {
+            usersList.innerHTML = '';
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.username}</td>
+                    <td>${user.email}</td>
+                    <td>${user.role}</td>
+                    <td class="action-buttons">
+                        <button class="btn btn-primary" onclick="editUser(${user.id})">Edit</button>
+                        <button class="btn btn-danger" onclick="deleteUser(${user.id})">Delete</button>
+                    </td>
+                `;
+                usersList.appendChild(row);
+            });
+        }
+
+        // Add/Edit user
+        userForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const userData = {
+                username: usernameInput.value,
+                email: emailInput.value,
+                role: roleInput.value
+            };
+
+            if (userIdInput.value) {
+                // Edit existing user
+                const userId = parseInt(userIdInput.value);
+                const index = users.findIndex(user => user.id === userId);
+                users[index] = { ...users[index], ...userData };
+            } else {
+                // Add new user
+                const newUser = {
+                    id: users.length + 1,
+                    ...userData
+                };
+                users.push(newUser);
+            }
+
+            // Reset form and update display
+            userForm.reset();
+            userIdInput.value = '';
+            displayUsers();
+        });
+
+        // Edit user
+        function editUser(id) {
+            const user = users.find(user => user.id === id);
+            if (user) {
+                userIdInput.value = user.id;
+                usernameInput.value = user.username;
+                emailInput.value = user.email;
+                roleInput.value = user.role;
+            }
+        }
+
+        // Delete user
+        function deleteUser(id) {
+            if (confirm('Are you sure you want to delete this user?')) {
+                users = users.filter(user => user.id !== id);
+                displayUsers();
+            }
+        }
+
+        // Initial display
+        displayUsers();
+    </script>
+</body>
+</html>

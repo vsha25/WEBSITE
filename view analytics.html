@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Service Directory - Admin Analytics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+         body {
+        background-image: url("bcgrnd%20pic.jpg");
+        background-size: 100px;
+        }
+        
+         header {
+            background-color: red;
+            color: white;
+            padding: 20px;
+        }
+        
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+        
+         .tab {
+            display: flex;
+            align-items: center;
+            padding: 8px 15px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 14px;
+            cursor: default;
+        }
+
+        .tab.active {
+            background: #fff;
+            border-bottom: 2px solid #3498db;
+        }
+
+         .close-button {
+            margin-left: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: none;
+            background: #e74c3c;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .close-button:hover {
+            background: #c0392b;
+        }
+
+        .sidebar {
+            background: darkred;
+            color: white;
+            padding: 20px;
+        }
+
+        .sidebar-logo {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-menu {
+            margin-top: 20px;
+        }
+
+        .menu-item {
+            padding: 15px 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+            border-radius: 5px;
+        }
+
+        .menu-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .menu-item.active {
+            background: gray;
+        }
+
+        .main-content {
+            padding: 20px;
+            background: #f5f6fa;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .stat-card h3 {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .chart-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            background: #e0e0e0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .filter-btn.active {
+            background: red;
+            color: white;
+        }
+
+        canvas {
+            width: 100% !important;
+            height: 300px !important;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+</head>
+<body>
+    <header>
+    <h1>Analytics Dashboard</h1>
+</header>
+        <div class="main-content">
+            <div class="header">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="updateTimeframe('week')">Week</button>
+                    <button class="filter-btn" onclick="updateTimeframe('month')">Month</button>
+                    <button class="filter-btn" onclick="updateTimeframe('year')">Year</button>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Services Listed</h3>
+                    <div class="number" id="totalServices">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Active Users</h3>
+                    <div class="number" id="activeUsers">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Reviews</h3>
+                    <div class="number" id="totalReviews">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Average Rating</h3>
+                    <div class="number" id="avgRating">0</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-card">
+                    <h2>Service Listings Growth</h2>
+                    <canvas id="growthChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h2>Category Distribution</h2>
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        // Initialize charts and data
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sample data - replace with actual data from your backend
+            const sampleData = {
+                week: {
+                    services: 1250,
+                    users: 3500,
+                    reviews: 850,
+                    rating: 4.5,
+                    growth: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        data: [120, 135, 142, 156, 168, 172, 180]
+                    },
+                    categories: {
+                        labels: ['Home', 'Auto', 'Health', 'Education', 'Beauty'],
+                        data: [30, 25, 20, 15, 10]
+                    }
+                },
+                month: {
+                    services: 5200,
+                    users: 12000,
+                    reviews: 3200,
+                    rating: 4.3,
+                    growth: {
+                        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                        data: [450, 520, 580, 630]
+                    },
+                    categories: {
+                        labels: ['Home', 'Auto', 'Health', 'Education', 'Beauty'],
+                        data: [35, 28, 22, 18, 12]
+                    }
+                },
+                year: {
+                    services: 15600,
+                    users: 45000,
+                    reviews: 12000,
+                    rating: 4.4,
+                    growth: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                        data: [1200, 1350, 1500, 1680, 1850, 2000, 2200, 2400, 2600, 2800, 3000, 3200]
+                    },
+                    categories: {
+                        labels: ['Home', 'Auto', 'Health', 'Education', 'Beauty'],
+                        data: [40, 30, 25, 20, 15]
+                    }
+                }
+            };
+
+            let growthChart, categoryChart;
+
+            // Initialize charts
+            function initCharts(timeframe) {
+                const data = sampleData[timeframe];
+                
+                // Update stats
+                document.getElementById('totalServices').textContent = data.services.toLocaleString();
+                document.getElementById('activeUsers').textContent = data.users.toLocaleString();
+                document.getElementById('totalReviews').textContent = data.reviews.toLocaleString();
+                document.getElementById('avgRating').textContent = data.rating.toFixed(1);
+
+                // Destroy existing charts if they exist
+                if (growthChart) growthChart.destroy();
+                if (categoryChart) categoryChart.destroy();
+
+                // Create growth chart
+                const growthCtx = document.getElementById('growthChart').getContext('2d');
+                growthChart = new Chart(growthCtx, {
+                    type: 'line',
+                    data: {
+                        labels: data.growth.labels,
+                        datasets: [{
+                            label: 'Service Listings',
+                            data: data.growth.data,
+                            borderColor: '#3498db',
+                            tension: 0.4,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+
+                // Create category chart
+                const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+                categoryChart = new Chart(categoryCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: data.categories.labels,
+                        datasets: [{
+                            data: data.categories.data,
+                            backgroundColor: [
+                                '#3498db',
+                                '#e74c3c',
+                                '#2ecc71',
+                                '#f1c40f',
+                                '#9b59b6'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+            }
+
+            // Initialize with weekly data
+            initCharts('week');
+
+            // Update timeframe function
+            window.updateTimeframe = function(timeframe) {
+                // Update button states
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                event.target.classList.add('active');
+
+                // Update charts
+                initCharts(timeframe);
+            };
+        });
+    </script>
+</body>
+</html>

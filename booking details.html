@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Details - Local Service Directory</title>
+    <link rel="stylesheet" href="styles.css">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+      body {
+        background-image: url("hsbc.jpg");
+        background-size: 500px;
+        }
+
+.booking-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.service-picture img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.booking-info {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.booking-info p {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #555;
+}
+
+.booking-info strong {
+    color: #333;
+}
+
+.next-page button {
+    background-color: red;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.next-page button:hover {
+    background-color: gray;
+}
+     #menu.active {
+            display: block;
+        }
+
+        .menu-item {
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .menu-item:hover {
+            background: #f0f0f0;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                width: 95%;
+                margin: 10px auto;
+            }
+
+            .button-group {
+                gap: 10px;
+            }
+        }
+    </style>
+    </head>
+    <body>
+        
+    <div class="booking-container">
+        <h1>Booking Details</h1>
+        <div class="booking-details">
+            <!-- Service Picture -->
+            <div class="service-picture">
+                <img src="bookpic">
+            </div>
+
+            <!-- Booking Information -->
+            <div class="booking-info">
+                <p><strong>Date:</strong> <span id="booking-date"></span></p>
+                <p><strong>Time:</strong> <span id="booking-time"></span></p>
+                <p><strong>Address:</strong> <span id="booking-address"></span></p>
+            </div>
+        </div>
+
+        <!-- Next Page Button -->
+        <div class="next-page">
+            <div class="login-options">
+                    <a href="payment%20gateway%20integration.html" class="btn btn-secondary">Next</a>
+                
+        </div>
+    </div>
+        
+
+    <script>
+        function nextPage() {
+            // Redirect to the next page
+            window.location.href = "confirmation.html"; // Replace with the actual next page URL
+        }
+    </script>
+</body>
+</html>

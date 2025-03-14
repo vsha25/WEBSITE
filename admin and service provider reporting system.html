@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin & Service Provider Reporting System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: darkred;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+         body {
+        background-image: url("bcgrnd%20pic.jpg");
+        background-size: 100px;
+        }
+        
+        .container {
+            margin: 20px auto;
+            max-width: 1000px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .dashboard, .reporting-form {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        
+        }
+        .dashboard-cards {
+            display: flex;
+            justify-content: space-between;
+      
+        }
+        .reporting-form input, .reporting-form textarea, .reporting-form select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .reporting-form button {
+            margin-top: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .reporting-form button:hover {
+            background-color: gainsboro;
+        }
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .report-table th, .report-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .report-table th {
+            background-color: red;
+            color: white;
+            text-align: center;
+            
+        }
+        .report-table td:nth-child(3) {
+            text-align: justify;
+        }
+          }
+        .header-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            color: #4CAF50;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .linked-button {
+            background-color: gainsboro;
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Local Service Directory - Admin & Reporting System</h1>
+    </header>
+
+   
+    <div class="reporting-form">
+        <h2>Service Provider Reporting</h2>
+        <form id="reportForm">
+            <label for="providerName">Service Provider Name:</label>
+            <input type="text" id="providerName" required><br>
+
+            <br><label for="serviceType">Service Type:</label>
+            <select id="serviceType" required><br>
+                <option value="Plumbing">Home Maintenance Services</option>
+                <option value="Electrician">Real Estate Listings</option>
+                <option value="Cleaning">Home Improvement Services</option>
+                 <option value="Cleaning">Home Assistance Services</option>
+            </select><br>
+
+            <br><label for="reportMessage">Report Details:</label>
+            <textarea id="reportMessage" rows="4" required></textarea><br>
+
+            <button type="submit">Submit Report</button>
+            <a href="reports.html" class="linked-button">View All Reports</a>
+        </form>
+    </div><br><br>
+
+  
+    <div>
+        <h2>Submitted Reports</h2>
+        <table class="report-table">
+            <thead>
+                <tr>
+                    <th>Provider Name</th>
+                    <th>Service Type</th>
+                    <th>Report Details</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="reportTableBody">
+               
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.getElementById("reportForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+      
+        let providerName = document.getElementById("providerName").value;
+        let serviceType = document.getElementById("serviceType").value;
+        let reportMessage = document.getElementById("reportMessage").value;
+
+      
+        if (providerName.trim() === "" || reportMessage.trim() === "") {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        
+        let tableBody = document.getElementById("reportTableBody");
+        let newRow = document.createElement("tr");
+
+        newRow.innerHTML = `
+            <td>${providerName}</td>
+            <td>${serviceType}</td>
+            <td>${reportMessage}</td>
+            <td><button onclick="deleteReport(this)">Delete</button></td>
+        `;
+
+        tableBody.appendChild(newRow);
+       
+
+        document.getElementById("reportForm").reset();
+    });
+
+    
+    function deleteReport(button) {
+        button.closest("tr").remove();
+    }
+</script>
+
+</body>
+</html>
+

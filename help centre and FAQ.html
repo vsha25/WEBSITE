@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center & FAQ - Local Service Directory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: red;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+             body {
+        background-image: url("bc2.jpg");
+        background-size: auto;
+        
+        }
+        .container {
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        .faq-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .faq-item h3 {
+            margin: 0;
+            font-size: 18px;
+            color: darkred;
+        }
+        .faq-item p {
+            margin: 10px 0 0;
+            display: none;
+            font-size: 16px;
+            color: #555;
+        }
+        .faq-item.active p {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Help Center & FAQ</h1>
+    <p>Find answers to common questions</p>
+</header>
+
+<div class="container">
+    <input type="text" id="searchBox" class="search-box" placeholder="Search FAQs...">
+    
+    <div id="faqList">
+        <div class="faq-item">
+            <h3>How do I register as a service provider?</h3>
+            <p>To register as a service provider, go to the "Sign Up" page and choose "Service Provider" as your role.</p>
+        </div>
+        <div class="faq-item">
+            <h3>How do I book a service?</h3>
+            <p>Search for a service, click on the provider, and use the "Book Now" button to schedule an appointment.</p>
+        </div>
+        <div class="faq-item">
+            <h3>What payment methods are accepted?</h3>
+            <p>We accept credit/debit cards, PayPal, and online banking.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Can I cancel a booked service?</h3>
+            <p>Yes, you can cancel within 24 hours of booking without any charges.</p>
+        </div>
+        <div class="faq-item">
+            <h3>How do I contact customer support?</h3>
+            <p>You can reach us via the "Contact Us" page or email us at support@localsdirectory.com.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // FAQ Expand & Collapse
+    document.querySelectorAll(".faq-item").forEach(item => {
+        item.addEventListener("click", () => {
+            item.classList.toggle("active");
+        });
+    });
+
+    // Search Functionality
+    document.getElementById("searchBox").addEventListener("keyup", function() {
+        let query = this.value.toLowerCase();
+        document.querySelectorAll(".faq-item").forEach(item => {
+            let question = item.querySelector("h3").textContent.toLowerCase();
+            if (question.includes(query)) {
+                item.style.display = "block";
+            } else {
+                item.style.display = "none";
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

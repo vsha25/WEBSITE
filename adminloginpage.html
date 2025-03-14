@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Directory Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-container {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        body {
+        background-image: url("bcgrnd%20pic.jpg");
+        background-size: auto;
+        }
+
+        .top-bar {
+            background-color: #f0f0f0;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+        }
+
+         .logo {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .title-bar {
+            background-color: darkred;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .login-container {
+            max-width: 400px;
+            width: 90%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        .profile-icon {
+            width: 120px;
+            height: 120px;
+            background: #808080;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-icon img {
+            width: 80px;
+            height: 80px;
+            filter: invert(1);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .forgot-password {
+            text-align: end;
+            margin-top: 15px;
+        }
+
+        .forgot-password a {
+            color: red;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .btn-login {
+            background: #ff0000;
+            color: white;
+        }
+
+        .btn-register {
+            background: #808080;
+            color: white;
+       
+        }
+
+        .location-bar {
+            background: darkred;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: auto;
+            font-size: 10px;
+        }
+
+        #menu {
+            display: none;
+            position: absolute;
+            top: 60px;
+            left: 10px;
+            background: white;
+            border: 50px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        #menu.active {
+            display: block;
+        }
+
+        .menu-item {
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .menu-item:hover {
+            background: #f0f0f0;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                width: 95%;
+                margin: 10px auto;
+            }
+
+            .button-group {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="top-bar">
+            <div class="menu-icon" onclick="toggleMenu()">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="#808080"/>
+                </svg>
+            </div>
+            <div class="logo">
+            <img src="logo.jpg" alt="Local Service Directory Logo">
+        </div>
+        </div>
+        <div id="menu">
+            <div class="menu-item" onclick="navigateTo('home')">Home</div>
+            <div class="menu-item" onclick="navigateTo('services')">Services</div>
+            <div class="menu-item" onclick="navigateTo('about')">About</div>
+            <div class="menu-item" onclick="navigateTo('contact')">Contact</div>
+        </div>
+
+        <div class="title-bar">
+            LOCAL SERVICE DIRECTORY WEBSITE
+        </div>
+
+        <div class="login-container">
+            <div class="profile-section">
+                <div class="profile-icon">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" 
+                         alt="Profile">
+                </div>
+                <input type="text" class="input-field" placeholder="NAME/ID" id="nameId">
+                <input type="password" class="input-field" placeholder="PASSWORD" id="password">
+                <div class="button-group">
+                <a href="admin%20dashboard.html">Admin Login</a>
+                     <a href="admin%20register.html">Register</a>
+                </div><br>
+                 <div class="forgot-password">
+            <a href="frgtidadmin.html">FORGOT ID?</a>
+            <a href="frgtpsswrdadmin.html">FORGOT PASSWORD?</a>
+        </div>
+            </div>
+        </div>
+
+    <div class="location-bar">
+            NO6 1F, Jalan SJ 1/4, TAMAN SEREMBAN JAYA, 70450, SEREMBAN, NEGERI SEMBILAN<br><br>&copy;2025 Local Service Directory. All rights reserved.
+            </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.classList.toggle('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('menu');
+            const menuIcon = document.querySelector('.menu-icon');
+            if (!menuIcon.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.remove('active');
+            }
+        });
+
+        function handleLogin() {
+            const nameId = document.getElementById('nameId').value;
+            const password = document.getElementById('password').value;
+
+            if (!nameId || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Here you would typically make an API call to verify credentials
+            console.log('Login attempt:', { nameId, password });
+            
+            // Simulate successful login
+            alert('Login successful!');
+            // Redirect to main service directory page
+            window.location.href = 'services.html';
+        }
+
+        function handleRegister() {
+            // Redirect to registration page
+            window.location.href = 'register.html';
+        }
+
+        function navigateTo(page) {
+            // Handle navigation
+            window.location.href = `${page}.html`;
+        }
+
+        // Get user's location
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                document.querySelector('.location-bar').textContent = 
+                    "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            const locationBar = document.querySelector('.location-bar');
+            locationBar.textContent = `Lat: ${position.coords.latitude.toFixed(2)}, ` +
+                                    `Long: ${position.coords.longitude.toFixed(2)}`;
+        }
+
+        // Initialize location on page load
+        window.onload = getLocation;
+    </script>
+</body>
+</html>

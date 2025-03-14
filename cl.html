@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Service Directory - Admin Analytics</title>
+    <style>
+        /* Previous styles remain the same */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* ... (previous styles) ... */
+
+        /* New styles for close button */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+            padding-right: 50px; /* Make space for close button */
+        }
+
+        .close-button {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e74c3c;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .close-button:hover {
+            background: #c0392b;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .close-button::before,
+        .close-button::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 2px;
+            background: white;
+            transform-origin: center;
+        }
+
+        .close-button::before {
+            transform: rotate(45deg);
+        }
+
+        .close-button::after {
+            transform: rotate(-45deg);
+        }
+
+        /* Animation for tab closing */
+        .closing {
+            animation: closeTab 0.3s ease-out forwards;
+        }
+
+        @keyframes closeTab {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+        }
+
+        /* Previous styles continue... */
+        
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+</head>
+<body>
+    <div class="dashboard" id="dashboardContainer">
+        <div class="sidebar">
+            <!-- Previous sidebar content -->
+        </div>
+        
+        <div class="main-content">
+            <div class="header">
+                <h1>Analytics Dashboard</h1>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="updateTimeframe('week')">Week</button>
+                    <button class="filter-btn" onclick="updateTimeframe('month')">Month</button>
+                    <button class="filter-btn" onclick="updateTimeframe('year')">Year</button>
+                </div>
+                <button class="close-button" onclick="closeTab()" title="Close Dashboard"></button>
+            </div>
+
+            <!-- Previous content continues... -->
+        </div>
+    </div>
+
+    <script>
+        // Previous JavaScript code remains...
+
+        // Add new function for closing tab
+        function closeTab() {
+            // Add closing animation
+            document.getElementById('dashboardContainer').classList.add('closing');
+            
+            // Wait for animation to complete
+            setTimeout(() => {
+                // Close the window/tab
+                window.close();
+                
+                // Fallback if window.close() is blocked by browser
+                if (!window.closed) {
+                    // Fade out the dashboard
+                    document.getElementById('dashboardContainer').style.display = 'none';
+                    
+                    // Show message if the tab couldn't be closed
+                    alert('Please close this tab manually. Some browsers prevent automatic tab closing for security reasons.');
+                }
+            }, 300);
+        }
+
+        // Previous JavaScript code continues...
+    </script>
+</body>
+</html>

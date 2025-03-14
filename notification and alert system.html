@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Service Directory - Notifications</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: red;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+         body {
+        background-image: url("bc2.jpg");
+        background-size: auto;
+        }
+        .container {
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .service-list {
+            margin-bottom: 20px;
+        }
+        .service-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .service-item button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .service-item button:hover {
+            background-color: gainsboro;
+        }
+        .notification-panel {
+            background-color: #fff8dc;
+            border: 1px solid #ffd700;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            display: none;
+        }
+        .notification-panel h2 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .notification-panel ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+        }
+        .notification-panel ul li {
+            padding: 5px 0;
+        }
+        .alert-box {
+            background-color: #ffdddd;
+            color: #a94442;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        .alert-box p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Local Service Directory</h1>
+    <p>Stay updated with our notifications and alert system</p>
+</header>
+
+<div class="container">
+    <!-- Notification Panel -->
+    <div class="notification-panel" id="notificationPanel">
+        <h2>Notifications</h2>
+        <ul id="notificationList">
+            <!-- Notifications will be dynamically added here -->
+        </ul>
+    </div>
+
+    <!-- Service List -->
+    <div class="service-list">
+        <h2>Available Services</h2>
+        <div class="service-item">
+            <span>HOME MAINTENANCE SERVICES</span>
+            <button onclick="sendAlert('John\'s Plumbing')">Request Service</button>
+        </div>
+        <div class="service-item">
+            <span>REAL ESTATE LISTINGS </span>
+            <button onclick="sendAlert('Mike\'s Electricians')">Request Service</button>
+        </div>
+        <div class="service-item">
+            <span>HOME IMPROVEMENT SERVICES</span>
+            <button onclick="sendAlert('Sarah\'s Cleaning Services')">Request Service</button>
+        </div>
+         <div class="service-item">
+            <span>HOME ASSISTANCE SERVICES</span>
+            <button onclick="sendAlert('Sarah\'s Cleaning Services')">Request Service</button>
+        </div>
+    </div>
+
+    <!-- Alert Box -->
+    <div class="alert-box" id="alertBox">
+        <p id="alertMessage"></p>
+    </div>
+</div>
+
+<script>
+    // Function to show a notification
+    function addNotification(message) {
+        const notificationPanel = document.getElementById('notificationPanel');
+        const notificationList = document.getElementById('notificationList');
+
+        // Create a new list item for the notification
+        const newNotification = document.createElement('li');
+        newNotification.textContent = message;
+
+        // Append the new notification to the list
+        notificationList.appendChild(newNotification);
+
+        // Show the notification panel
+        notificationPanel.style.display = 'block';
+    }
+
+    // Function to show an alert
+    function sendAlert(serviceName) {
+        const alertBox = document.getElementById('alertBox');
+        const alertMessage = document.getElementById('alertMessage');
+
+        // Set the alert message
+        alertMessage.textContent = `You have requested ${serviceName}. We will notify you with updates.`;
+
+        // Show the alert box
+        alertBox.style.display = 'block';
+
+        // Automatically hide the alert box after 3 seconds
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 3000);
+
+        // Add a notification
+        addNotification(`A request was made to ${serviceName}.`);
+    }
+</script>
+
+</body>
+</html>

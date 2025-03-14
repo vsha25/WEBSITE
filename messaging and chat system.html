@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Service Directory - Messaging System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color:red;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+         body {
+        background-image: url("bc2.jpg");
+        background-size: auto;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            margin: 20px auto;
+            max-width: 800px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .service-list {
+            padding: 20px;
+        }
+        .service-list h2 {
+            margin-bottom: 10px;
+        }
+        .service-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .service-item button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .service-item button:hover {
+            background-color: gainsboro;
+        }
+        .chat-section {
+            display: none;
+            flex-direction: column;
+            border-top: 1px solid #ddd;
+        }
+        .chat-header {
+            padding: 10px;
+            background-color:darkred;
+            color: white;
+            font-weight: bold;
+            border-radius: 10px 10px 0 0;
+        }
+        .chat-box {
+            padding: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+        .chat-message {
+            margin: 5px 0;
+        }
+        .chat-message .sender {
+            font-weight: bold;
+        }
+        .chat-footer {
+            display: flex;
+            padding: 10px;
+            gap: 10px;
+        }
+        .chat-footer input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .chat-footer button {
+            background-color: darkred;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .chat-footer button:hover {
+            background-color: gainsboro;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Local Service Directory</h1>
+    <p>Connect with service providers through our chat system.</p>
+</header>
+
+<div class="container">
+    <!-- Service List -->
+    <div class="service-list">
+        <h2>Available Services</h2>
+        <div class="service-item">
+            <span>HOME MAINTENANCE SERVICES</span>
+            <button onclick="home maintenance')">Message</button>
+        </div>
+        <div class="service-item">
+            <span>REAL ESTATE LISTINGS </span>
+            <button onclick="sendAlert('real estate listings')">Message</button>
+        </div>
+        <div class="service-item">
+            <span>HOME IMPROVEMENT SERVICES</span>
+            <button onclick="sendAlert('Sarah\'s Cleaning Services')">Message</button>
+        </div>
+        <div class="service-item">
+            <span>HOME ASSISTANCE SERVICES</span>
+            <button onclick="sendAlert('Sarah\'s Cleaning Services')">Message</button>
+        </div>
+        </div>
+    </div>
+
+    <!-- Chat Section -->
+    <div class="chat-section" id="chatSection">
+        <div class="chat-header" id="chatHeader"></div>
+        <div class="chat-box" id="chatBox"></div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Type your message here...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentService = "";
+
+    // Function to open chat
+    function openChat(serviceName) {
+        currentService = serviceName;
+        document.getElementById("chatSection").style.display = "flex";
+        document.getElementById("chatHeader").innerText = `Chat with ${serviceName}`;
+        document.getElementById("chatBox").innerHTML = ""; // Clear chat history
+    }
+
+    // Function to send a message
+    function sendMessage() {
+        const messageInput = document.getElementById("chatInput");
+        const messageText = messageInput.value.trim();
+
+        if (messageText === "") return;
+
+        // Add user message to chat box
+        const chatBox = document.getElementById("chatBox");
+        const userMessage = document.createElement("div");
+        userMessage.classList.add("chat-message");
+        userMessage.innerHTML = `<span class="sender">You:</span> ${messageText}`;
+        chatBox.appendChild(userMessage);
+
+        // Clear input field
+        messageInput.value = "";
+
+        // Simulate a response from the service provider
+        setTimeout(() => {
+            const providerMessage = document.createElement("div");
+            providerMessage.classList.add("chat-message");
+            providerMessage.innerHTML = `<span class="sender">${currentService}:</span> Thank you for reaching out. How can we help you?`;
+            chatBox.appendChild(providerMessage);
+
+            // Scroll to the bottom of the chat
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }, 1000);
+    }
+</script>
+
+</body>
+</html>

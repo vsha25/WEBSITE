@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Plans - Local Service Directory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            text-align: center;
+        }
+        header {
+            background-color: red;
+            color: white;
+            padding: 20px;
+        }
+            body {
+        background-image: url("bc2.jpg");
+        background-size: auto;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .plans {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .plan {
+            width: 30%;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .plan:hover {
+            transform: scale(1.05);
+        }
+        h2 {
+            color: #333;
+        }
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            color: darkred;
+        }
+        .features {
+            text-align: left;
+            padding-left: 20px;
+        }
+        .features li {
+            margin: 10px 0;
+        }
+        .subscribe-btn {
+            display: block;
+            background-color: red;
+            color: white;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .subscribe-btn:hover {
+            background-color: gainsboro;
+        }
+        .toggle-container {
+            margin: 20px 0;
+        }
+        .toggle-btn {
+            cursor: pointer;
+            padding: 10px 15px;
+            background: #ddd;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .toggle-btn.active {
+            background: red;
+            color: white;
+        }
+        .subscription-form {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .subscription-form input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Subscription & Premium Features</h1>
+</header>
+
+<div class="container">
+
+    <h2>Choose Your Plan</h2>
+
+    <div class="toggle-container">
+        <span class="toggle-btn active" id="monthlyToggle">Monthly</span>
+        <span class="toggle-btn" id="yearlyToggle">Yearly (Save 20%)</span>
+    </div>
+
+    <div class="plans">
+        <!-- Free Plan -->
+        <div class="plan">
+            <h2>Free Plan</h2>
+            <p class="price" id="freePrice">RM0/month</p>
+            <ul class="features">
+                <li>✔ Basic Listings</li>
+                <li>✔ Limited Service Bookings</li>
+                <li>❌ No Featured Listing</li>
+            </ul>
+            <button class="subscribe-btn" onclick="selectPlan('Free')">Get Started</button>
+        </div>
+
+        <!-- Basic Plan -->
+        <div class="plan">
+            <h2>Basic Plan</h2>
+            <p class="price" id="basicPrice">RM10/month</p>
+            <ul class="features">
+                <li>✔ Unlimited Listings</li>
+                <li>✔ Service Bookings</li>
+                <li>✔ Featured Listing</li>
+                <li>❌ Premium Support</li>
+            </ul>
+            <button class="subscribe-btn" onclick="selectPlan('Basic')">Subscribe</button>
+        </div>
+
+        <!-- Premium Plan -->
+        <div class="plan">
+            <h2>Premium Plan</h2>
+            <p class="price" id="premiumPrice">RM20/month</p>
+            <ul class="features">
+                <li>✔ Unlimited Listings</li>
+                <li>✔ Service Bookings</li>
+                <li>✔ Featured Listing</li>
+                <li>✔ Premium Support</li>
+            </ul>
+            <button class="subscribe-btn" onclick="selectPlan('Premium')">Subscribe</button>
+        </div>
+    </div>
+
+    <!-- Subscription Form -->
+    <div class="subscription-form" id="subscriptionForm" style="display:none;">
+        <h2>Subscribe Now</h2>
+        <form>
+            <label>Name:</label>
+            <input type="text" placeholder="Enter your name" required>
+            <label>Email:</label>
+            <input type="email" placeholder="Enter your email" required>
+            <label>Choose Plan:</label>
+            <select id="selectedPlan">
+                <option>Basic</option>
+                <option>Premium</option>
+            </select>
+            <label>Payment Method:</label>
+            <select>
+                <option>Credit Card</option>
+                <option>PayPal</option>
+                <option>Bank Transfer</option>
+            </select>
+            <button class="subscribe-btn" type="submit">Proceed to Payment</button>
+        </form>
+    </div>
+
+</div>
+
+<script>
+    let isYearly = false;
+
+    document.getElementById("monthlyToggle").addEventListener("click", () => togglePricing(false));
+    document.getElementById("yearlyToggle").addEventListener("click", () => togglePricing(true));
+
+    function togglePricing(yearly) {
+        isYearly = yearly;
+        document.getElementById("monthlyToggle").classList.toggle("active", !yearly);
+        document.getElementById("yearlyToggle").classList.toggle("active", yearly);
+
+        document.getElementById("basicPrice").textContent = yearly ? "$96/year" : "$10/month";
+        document.getElementById("premiumPrice").textContent = yearly ? "$192/year" : "$20/month";
+    }
+
+    function selectPlan(plan) {
+        document.getElementById("subscriptionForm").style.display = "block";
+        document.getElementById("selectedPlan").value = plan;
+    }
+</script>
+
+</body>
+</html>

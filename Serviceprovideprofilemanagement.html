@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Provider Profile Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://example.com/doodle-art-background.jpg'); /* Replace with your doodle art image URL */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #333; /* Adjust text color for contrast */
+        }
+        header {
+            background-color: red;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+        header h1 {
+            margin: 0;
+        }
+        section {
+            margin: 20px auto;
+            max-width: 700px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Transparent white for better readability */
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input, textarea {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            color: white;
+            background-color:red;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: gray;
+        }
+        footer {
+            text-align: center;
+            padding: 2px;
+            background-color: red;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Local Service Directory</h1>
+    </header>
+
+    <!-- Service Provider Profile Management -->
+    <section id="profile-management">
+        <h2>Service Provider Profile Management</h2>
+        <form><br><br>
+            <div class="form-group">
+                <label for="provider-name">Full Name</label>
+                <input type="text" id="provider-name" name="provider-name" placeholder="Enter full name" required>
+            </div><br>
+            <div class="form-group">
+                <label for="business-name">Business Name</label>
+                <input type="text" id="business-name" name="business-name" placeholder="Enter business name" required>
+            </div><br>
+            <div class="form-group">
+                <label for="contact-info">Contact Information</label>
+                <input type="text" id="contact-info" name="contact-info" placeholder="Enter phone number or email" required>
+            </div><br>
+            <div class="form-group">
+                <label for="service-category">Service Category</label>
+                <input type="text" id="service-category" name="service-category" placeholder="E.g., Plumber, Electrician, etc." required>
+            </div><br>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="5" placeholder="Describe your services..." required></textarea>
+            </div><br>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" placeholder="Enter your service area or address" required>
+            </div><br><br>
+            <button type="submit">Save Profile</button>
+        </form>
+    </section><br><br><br><br><br>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Local Service Directory</p>
+    </footer>
+</body>
+</html>

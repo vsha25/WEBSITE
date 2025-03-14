@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Service Directory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+        .search-container {
+            text-align: center;
+            margin: 20px;
+        }
+        .service-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .service-item {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 10px;
+            width: 200px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: center;
+        }
+        .service-item h3 {
+            font-size: 18px;
+            color: #333;
+        }
+        .service-item p {
+            color: #666;
+            font-size: 14px;
+        }
+        .filter-container {
+            text-align: center;
+            margin: 10px;
+        }
+        .filter-select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .btn-search {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .btn-search:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Local Service Directory</h1>
+</header>
+
+<div class="search-container">
+    <input type="text" id="searchInput" onkeyup="searchService()" placeholder="Search for services..." style="width: 80%; padding: 10px; font-size: 16px;">
+    <button class="btn-search" onclick="searchService()">Search</button>
+</div>
+
+<div class="filter-container">
+    <select id="categoryFilter" class="filter-select" onchange="filterServices()">
+        <option value="">Filter by category</option>
+        <option value="plumbing">Plumbing</option>
+        <option value="electrical">Electrical</option>
+        <option value="cleaning">Cleaning</option>
+        <option value="gardening">Gardening</option>
+    </select>
+</div>
+
+<div class="service-list" id="serviceList">
+    <div class="service-item" data-category="plumbing">
+        <h3>John's Plumbing</h3>
+        <p>Plumbing services, pipe repairs, and installations.</p>
+    </div>
+    <div class="service-item" data-category="electrical">
+        <h3>Smith Electrical</h3>
+        <p>Electrical installation and repairs for your home.</p>
+    </div>
+    <div class="service-item" data-category="cleaning">
+        <h3>Bright Cleaning</h3>
+        <p>Home and office cleaning services.</p>
+    </div>
+    <div class="service-item" data-category="gardening">
+        <h3>Green Thumb Gardening</h3>
+        <p>Landscaping and gardening maintenance services.</p>
+    </div>
+    <div class="service-item" data-category="plumbing">
+        <h3>Mike's Plumbing</h3>
+        <p>Affordable plumbing and drain cleaning.</p>
+    </div>
+    <div class="service-item" data-category="cleaning">
+        <h3>Sparkle Clean</h3>
+        <p>Eco-friendly cleaning for your home and business.</p>
+    </div>
+</div>
+
+<script>
+    // Function to search services based on user input
+    function searchService() {
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        let serviceItems = document.querySelectorAll('.service-item');
+        
+        serviceItems.forEach(item => {
+            let serviceName = item.querySelector('h3').textContent.toLowerCase();
+            let serviceDescription = item.querySelector('p').textContent.toLowerCase();
+            
+            if (serviceName.includes(input) || serviceDescription.includes(input)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    // Function to filter services by category
+    function filterServices() {
+        let category = document.getElementById('categoryFilter').value;
+        let serviceItems = document.querySelectorAll('.service-item');
+        
+        serviceItems.forEach(item => {
+            let itemCategory = item.getAttribute('data-category');
+            
+            if (category === "" || itemCategory === category) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

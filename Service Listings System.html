@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Local Service Directory - Service Lists</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .main-container {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styles */
+        .top-bar {
+            background-color: darkred;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            padding: 10px;
+            color: white;
+        }
+
+        /* Title Bar */
+        .title-bar {
+            background-color: red;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 90px;
+            font-size: 24px;
+        }
+         body {
+        background-image: url("bc2.jpg");
+        background-size: auto;
+        }
+
+        /* Content Styles */
+        .w3-main {
+            margin-top: 30px !important;
+            padding: 0 20px;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .service-item {
+            text-align: center;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .service-item h3 {
+            color: #333;
+            margin: 10px 0;
+        }
+
+        /* Sidebar Styles */
+        .w3-sidebar {
+            background-color: white;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        .w3-bar-item {
+            color: #333;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .w3-bar-item:hover {
+            background-color: #f5f5f5;
+            color: red;
+        }
+
+        /* Footer Styles */
+        .location-bar {
+            background: darkred;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: auto;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Pagination Styles */
+        .w3-bar {
+            margin: 20px 0;
+        }
+
+        .w3-button {
+            background-color: red;
+            color: white;
+            margin: 0 5px;
+            border-radius: 4px;
+        }
+
+        .w3-button:hover {
+            background-color: darkred !important;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .title-bar {
+                margin-top: 80px;
+                font-size: 20px;
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .w3-sidebar {
+                width: 70% !important;
+                min-width: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2000;width:40%;min-width:300px" id="mySidebar">
+    <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button">
+        Close Menu
+    </a>
+    <a href="Serviceprovideprofilemanagement.html" onclick="w3_close()" class="w3-bar-item w3-button">MY PROFILE</a>
+    <a href="messaging%20and%20chat%20system.html" onclick="w3_close()" class="w3-bar-item w3-button">CHAT</a>
+    <a href="help%20centre%20and%20FAQ.html" onclick="w3_close()" class="w3-bar-item w3-button">HELP/FAQ</a>
+    <a href="rating%20and%20review%20user.html" onclick="w3_close()" class="w3-bar-item w3-button">RATING AND REVIEW</a>
+        <a href="notification%20and%20alert%20system.html" onclick="w3_close()" class="w3-bar-item w3-button"onclick="w3_close()" class="w3-bar-item w3-button">SETTING</a>    
+    <a href="subscription%20or%20premium%20features.html"onclick="w3_close()" class="w3-bar-item w3-button">SUBSCRIPTION OR PREMIUM FEATURES</a>
+    <a href="geolocation%20and%20maps%20integration.html" onclick="w3_close()" class="w3-bar-item w3-button">LOCATION</a>
+    <a href="notification%20and%20alert%20system.html" onclick="w3_close()" class="w3-bar-item w3-button">SETTING</a>
+        <a href="privacy%20and%20security.html" onclick="w3_close()" class="w3-bar-item w3-button">PRIVACY AND SECURITY SETTING</a>
+
+    <a href="#logout" onclick="handleLogout()" class="w3-bar-item w3-button">LOGOUT</a>
+</nav>
+
+<div class="main-container">
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="menu-icon" onclick="w3_open()">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="white"/>
+            </svg>
+        </div>
+        <div class="logo">
+            <img src="logo.jpg" alt="Local Service Directory Logo">
+        </div>
+    </div>
+
+    <!-- Title Bar -->
+    <div class="title-bar">
+        LOCAL SERVICE DIRECTORY
+    </div>
+
+    <!-- Main Content -->
+    <div class="w3-main w3-content">
+        <div class="service-grid">
+            <div class="service-item">
+                <img src="home%20maintenance.avif" alt="Home Maintenance">
+                <h3>HOME MAINTENANCE SERVICES</h3>
+                <p>Plumbing/ Electrical/ Cleaning</p><br>
+                <a href="booking%20details.html" class="w3-button">BOOK NOW</a>
+            </div>
+            <div class="service-item">
+                <img src="real%20estate.jpg" alt="Real Estate">
+                <h3>REAL ESTATE LISTINGS</h3>
+                <p>Houses for sale or Rent in specific areas</p><br>
+                <a href="booking%20details.html" class="w3-button">BOOK NOW</a>
+            </div>
+            <div class="service-item">
+                <img src="home%20improvement.jpg" alt="Home Improvement">
+                <h3>HOME IMPROVEMENT SERVICES</h3>
+                <p>Renovations/ Interior design/ Landscaping</p><br>
+                <a href="booking%20details.html" class="w3-button">BOOK NOW</a>
+            </div>
+            <div class="service-item">
+                <img src="home%20assistance.jpg" alt="Home Assistance">
+                <h3>HOME ASSISTANCE SERVICES</h3>
+                <p>Elderly Care/ Babysitting</p><br>
+                <a href="booking%20details.html" class="w3-button">BOOK NOW</a>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="w3-center w3-padding-32">
+            <div class="w3-bar">
+                <a href="#" class="w3-button">«</a>
+                <a href="#" class="w3-button">»</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="location-bar">
+        <p>NO6 1F, Jalan SJ 1/4, TAMAN SEREMBAN JAYA, 70450, SEREMBAN, NEGERI SEMBILAN</p>
+        <p style="margin-top: 10px;">&copy; 2025 Local Service Directory. All rights reserved.</p>
+    </div>
+</div>
+
+<script>
+// Sidebar functions
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+}
+
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+}
+
+// Logout function
+function handleLogout() {
+    if (confirm('Are you sure you want to logout?')) {
+        // Add logout logic here
+        window.location.href = 'login.html';
+    }
+}
+
+// Location functions
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, handleLocationError);
+    } else {
+        handleLocationError("Geolocation is not supported by this browser.");
+    }
+}
+
+function showPosition(position) {
+    // You can use this to update location-based content
+    console.log(`Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`);
+}
+
+function handleLocationError(error) {
+    console.error("Location error:", error);
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    getLocation();
+});
+</script>
+
+</body>
+</html>
